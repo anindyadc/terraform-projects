@@ -1,16 +1,9 @@
-locals {
-  enough_subnets = length(var.subnets) >= 2
-}
-
 resource "aws_lb" "main" {
-  count = local.enough_subnets ? 1 : 0
-
   name               = var.name
   internal           = false
   load_balancer_type = "application"
   security_groups    = var.security_groups
   subnets            = var.subnets
-
   enable_deletion_protection = false
 }
 
